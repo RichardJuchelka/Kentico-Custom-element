@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://kentico.github.io/custom-element-samples/shared/custom-element.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 5px;
+            font-family: "Source Sans Pro", sans-serif;
+        }
+
+        dt {
+            float: left;
+            width: 20%;
+            padding: .25em;
+            clear: left;
+        }
+
+        dd {
+            padding: .25em 0;
+        }
+
+        h4 {
+            margin: .25em 0;
+        }
+
+        .tiles {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .tile {
+            flex: 1 1 auto;
+            width: 50%;
+            margin-top: 10px;
+        }
+
+        #contextValues {
+            font-size: smaller;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="actions">
+        <button onclick="expand()" class="btn btn--secondary">Expand</button>
+        <button onclick="collapse()" class="btn btn--secondary">Collapse</button>
+        <button onclick="myVar = setInterval(makeMoreSpace, 1000)" class="btn btn--secondary">Start expanding</button>
+        <button onclick="clearTimeout(myVar)" class="btn btn--secondary">Stop expanding</button>
+    </div>
+    <div class="tiles">
+        <div class="tile">
+            <h4>Context</h4>
+            <dl id="contextValues">
+                <dt>Disabled</dt>
+                <dd id="lblDisabled"></dd>
+                <dt>Project id</dt>
+                <dd id="lblProjectId"></dd>
+                <dt>Item id</dt>
+                <dd id="lblItemId"></dd>
+                <dt>Variant id</dt>
+                <dd id="lblVariantId"></dd>
+                <dt>Lang codename</dt>
+                <dd id="lblLanguageCodeName"></dd>
+            </dl>
+        </div>
+        <div class="tile">
+            <h4>Value</h4>
+            <button onclick="sendNull()" class="btn btn--secondary">Send null</button>
+            <button onclick="send100messages()" class="btn btn--secondary">Send 100 updates</button>
+            <button onclick="sendTimestamp()" class="btn btn--secondary">Send timestamp</button>
+            <br />
+            <textarea id="txtValue" rows="4" cols="50"></textarea>
+        </div>
+        <div class="tile">
+            <h4>Config</h4>
+            <pre id="lblConfig"></pre>
+        </div>
+        <div class="tile">
+            <h4>Other value</h4>
+            <button onclick="readOtherValue(otherElement)" class="btn btn--secondary" id="btnGetOther">Read other value</button>
+            <button onclick="readOtherValue('non_existing')" class="btn btn--secondary">Read non-existing value</button>
+            <br />
+            <textarea id="txtOtherValue" rows="4" cols="50" readonly></textarea>
+        </div>
+        <div class="tile">
+        </div>
+        <div class="tile">
+            <h4>Observe changes</h4>
+            <button onclick="observeChanges([otherElement])" class="btn btn--secondary" id="btnListenOther">Listen to other</button>
+            <button onclick="observeChanges([])" class="btn btn--secondary">Listen to all</button>
+            <button onclick="stopListening()" class="btn btn--secondary">Stop listening</button>
+            <br />
+            <textarea id="txtChanges" rows="4" cols="50" readonly></textarea>
+        </div>
+    </div>
+    <script>
+        var currentHeight = 32;
+        var otherElement = '';
+
+        function sendValue(value) {
+            console.log("Sending: " + value);
+            CustomElement.setValue(value);
+        }
+        function setHeight(height) {
+            const roundedHeight = Math.ceil(height);
+            console.log("Setting height: " + roundedHeight);
+            CustomElement.setHeight(roundedHeight);
+        }
+        function handleOnDisabledChanged(disabled) {
+            console.log("onDisabledChanged received: " + disabled);
+            displayDisabled(disabled);
+        }
+
+        function displayValue(value) {
+            $("#txtValue").val(value);
+        }
+        function displayDisabled(disabled) {
+            $("#lblDisabled").text(disabled);
+        }
+        function displayConfig(config) {
+            var configString = JSON.stringify(config, null, 2);
+            $("#lblConfig").text(configString);
+        }
+        function displayContext(context) {
+            $("#lblProjectId").text(context.projectId);
+            $("#lblItemId").text(context.item.id);
+            $("#lblVariantId").text(context.variant.id);
+            $("#lblLanguageCodeName").text(context.variant.codename);
+        }
+        function expand() {
+            currentHeight = $("html").height()
+            setHeight(currentHeight);
+        }
+        function collapse() {
+            currentHeight = 50;
+            setHeight(currentHeight);
+        }
+        function makeMoreSpace() {
+            currentHeight += 32;
+            setHeight(currentHeight);
+        }
+        function sendNull() {
+            sendValue(null);
+            displayValue(null);
+        }
+        function send100messages() {
+            var value = null;
+            for (var i = 1; i <= 100; i++) {
+                value = "Update " + i;
+                sendValue(value);
+            }
+            displayValue(value);
+        }
+        function sendTimestamp() {
+            var now = new Date();
+            var nowString = now.toISOString();
+            sendValue(nowString);
+            displayValue(nowString);
+        }
+        function readOtherValue(elementCodename) {
+            console.log("Reading value of " + elementCodename);
+            CustomElement.getElementValue(elementCodename, function (value) {
+                $("#txtOtherValue").text(value);
+            });
+        }
+
+        var cancellationToken = { ts: Date() };
+
+        function receiveChanges(elementCodenames, cancellation) {
+            if (cancellation.cancelled) {
+                return;
+            }
+            var now = new Date();
+            var nowString = now.toISOString();
+            $("#txtChanges").text(`${JSON.stringify(elementCodenames)} ${nowString}`);
+        }
+        function observeChanges(elementCodenames) {
+            stopListening();
+            console.log(`Observing changes of ${JSON.stringify(elementCodenames)}`);
+            var cancellation = cancellationToken;
+            CustomElement.observeElementChanges(
+                elementCodenames,
+                changedElementCodenames => receiveChanges(changedElementCodenames, cancellation)
+            );
+        }
+        function stopListening() {
+            $("#txtChanges").text("");
+            cancellationToken.cancelled = true;
+            cancellationToken = { ts: Date() };
+        }
+
+        function init() {
+            $("#txtValue").keyup(function () {
+                var value = $(this).val();
+                sendValue(value);
+            });
+        }
+
+        init();
+        // Load custom element js api and init the custom element
+        var apiUrl = new URLSearchParams(window.location.search).get('apiUrl') || 'https://dev-draft.global.ssl.fastly.net/js-api/custom-element.js';
+        $.getScript(apiUrl, () => {
+            CustomElement.init((el, _ctx) => {
+                console.log("Init: " + JSON.stringify(el));
+                otherElement = el.config && el.config.otherElement;
+                displayValue(el.value);
+                displayConfig(el.config);
+                displayDisabled(el.disabled);
+                displayContext(_ctx);
+            });
+            CustomElement.onDisabledChanged(handleOnDisabledChanged);
+        })
+    </script>
+</body>
+</html>
