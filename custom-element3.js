@@ -111,7 +111,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  _exports.api = void 0;
+  _exports.default = void 0;
   const customElement = new _CustomElement.CustomElement(new _CustomElementMessageSender.CustomElementMessageSender(Object.values(_CustomElementApi.CustomElementHostMessageType)));
   /*
     Publish just the plain js object (not the prototype class with readable internals)
@@ -126,7 +126,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     getElementValue: (elementCodename, callback) => customElement.getElementValue(elementCodename, callback),
     observeElementChanges: (elementCodenames, callback) => customElement.observeElementChanges(elementCodenames, callback)
   };
-  _exports.api = api;
+  var _default = api;
+  _exports.default = _default;
 });
 
 /***/ }),
