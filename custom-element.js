@@ -96,317 +96,272 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var _client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var _CustomElement__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var _CustomElementMessageSender__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 
-
-
-const customElement = new _CustomElement__WEBPACK_IMPORTED_MODULE_1__["CustomElement"](new _CustomElementMessageSender__WEBPACK_IMPORTED_MODULE_2__["CustomElementMessageSender"](Object.values(_client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementHostMessageType"])));
+Object.defineProperty(exports, "__esModule", { value: true });
+var objectValues_1 = __webpack_require__(1);
+var CustomElementApi_1 = __webpack_require__(2);
+var CustomElement_1 = __webpack_require__(3);
+var CustomElementMessageSender_1 = __webpack_require__(4);
+var customElement = new CustomElement_1.CustomElement(new CustomElementMessageSender_1.CustomElementMessageSender(objectValues_1.getObjectValues(CustomElementApi_1.CustomElementHostMessageType)));
 /*
   Publish just the plain js object (not the prototype class with readable internals)
   Arrow functions are used to preserve this inside CustomElement class.
  */
-
-const api = {
-  init: callback => customElement.init(callback),
-  setValue: value => customElement.setValue(value),
-  onDisabledChanged: callback => customElement.onDisabledChanged(callback),
-  setHeight: height => customElement.setHeight(height),
-  getElementValue: (elementCodename, callback) => customElement.getElementValue(elementCodename, callback),
-  observeElementChanges: (elementCodenames, callback) => customElement.observeElementChanges(elementCodenames, callback)
+var api = {
+    init: function (callback) { return customElement.init(callback); },
+    setValue: function (value) { return customElement.setValue(value); },
+    onDisabledChanged: function (callback) { return customElement.onDisabledChanged(callback); },
+    setHeight: function (height) { return customElement.setHeight(height); },
+    getElementValue: function (elementCodename, callback) { return customElement.getElementValue(elementCodename, callback); },
+    observeElementChanges: function (elementCodenames, callback) { return customElement.observeElementChanges(elementCodenames, callback); },
 };
 module.exports = api;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)(module)))
+
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = function(originalModule) {
-	if (!originalModule.webpackPolyfill) {
-		var module = Object.create(originalModule);
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		Object.defineProperty(module, "exports", {
-			enumerable: true
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function getObjectValues(obj) {
+    return Object.keys(obj).map(function (key) { return obj[key]; });
+}
+exports.getObjectValues = getObjectValues;
 
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomElementClientMessageType", function() { return CustomElementClientMessageType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomElementHostMessageType", function() { return CustomElementHostMessageType; });
-let CustomElementClientMessageType;
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var CustomElementClientMessageType;
 (function (CustomElementClientMessageType) {
-  CustomElementClientMessageType["InitDataRequest"] = "init-data-request";
-  CustomElementClientMessageType["SetValueRequest"] = "set-value-request";
-  CustomElementClientMessageType["SetHeightRequest"] = "set-height-request";
-  CustomElementClientMessageType["GetValueRequest"] = "get-value-request";
-  CustomElementClientMessageType["ObserveElementChanges"] = "observe-element-changes";
-})(CustomElementClientMessageType || (CustomElementClientMessageType = {}));
-
-let CustomElementHostMessageType;
-
+    CustomElementClientMessageType["InitDataRequest"] = "init-data-request";
+    CustomElementClientMessageType["SetValueRequest"] = "set-value-request";
+    CustomElementClientMessageType["SetHeightRequest"] = "set-height-request";
+    CustomElementClientMessageType["GetValueRequest"] = "get-value-request";
+    CustomElementClientMessageType["ObserveElementChanges"] = "observe-element-changes";
+})(CustomElementClientMessageType = exports.CustomElementClientMessageType || (exports.CustomElementClientMessageType = {}));
+var CustomElementHostMessageType;
 (function (CustomElementHostMessageType) {
-  CustomElementHostMessageType["InitDataResponse"] = "init-data-response";
-  CustomElementHostMessageType["SetValueResponse"] = "set-value-response";
-  CustomElementHostMessageType["OnDisabledChanged"] = "on-disabled-changed";
-  CustomElementHostMessageType["GetValueResponse"] = "get-value-response";
-  CustomElementHostMessageType["OnElementsChanged"] = "on-elements-changed";
-})(CustomElementHostMessageType || (CustomElementHostMessageType = {}));
+    CustomElementHostMessageType["InitDataResponse"] = "init-data-response";
+    CustomElementHostMessageType["SetValueResponse"] = "set-value-response";
+    CustomElementHostMessageType["OnDisabledChanged"] = "on-disabled-changed";
+    CustomElementHostMessageType["GetValueResponse"] = "get-value-response";
+    CustomElementHostMessageType["OnElementsChanged"] = "on-elements-changed";
+})(CustomElementHostMessageType = exports.CustomElementHostMessageType || (exports.CustomElementHostMessageType = {}));
+
 
 /***/ }),
 /* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomElement", function() { return CustomElement; });
-/* harmony import */ var _client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+var CustomElementApi_1 = __webpack_require__(2);
 function isStringArray(value) {
-  if (!Array.isArray(value)) {
-    return false;
-  }
-
-  for (let i = 0; i < value.length; i++) {
-    if (typeof value[i] !== 'string') {
-      return false;
+    if (!Array.isArray(value)) {
+        return false;
     }
-  }
-
-  return true;
+    for (var i = 0; i < value.length; i++) {
+        if (typeof value[i] !== 'string') {
+            return false;
+        }
+    }
+    return true;
 }
-
-class CustomElement {
-  constructor(sender) {
-    _defineProperty(this, "sender", void 0);
-
-    this.sender = sender;
-  }
-
-  setValue(value) {
-    if (typeof value !== 'string' && value !== null) {
-      throw Error('The provided value must be a string or null.');
+var CustomElement = /** @class */ (function () {
+    function CustomElement(sender) {
+        this.sender = sender;
     }
+    CustomElement.prototype.setValue = function (value) {
+        if (typeof value !== 'string' && value !== null) {
+            throw Error('The provided value must be a string or null.');
+        }
+        this.sender.sendMessageWithReply(CustomElementApi_1.CustomElementClientMessageType.SetValueRequest, CustomElementApi_1.CustomElementHostMessageType.SetValueResponse, function (data) {
+            if (data.error) {
+                console.error(data.error);
+            }
+        }, { value: value });
+    };
+    CustomElement.prototype.init = function (callback) {
+        if (typeof callback !== 'function') {
+            throw Error('Specify a callback function.');
+        }
+        this.sender.sendMessageWithReply(CustomElementApi_1.CustomElementClientMessageType.InitDataRequest, CustomElementApi_1.CustomElementHostMessageType.InitDataResponse, function (data) {
+            callback(data.element, data.context);
+        });
+    };
+    CustomElement.prototype.onDisabledChanged = function (callback) {
+        if (typeof callback !== 'function') {
+            throw Error('Specify a callback function.');
+        }
+        this.sender.registerListener(CustomElementApi_1.CustomElementHostMessageType.OnDisabledChanged, function (data) { return callback(data.disabled); });
+    };
+    CustomElement.prototype.setHeight = function (height) {
+        if (!Number.isInteger(height) || height < 0) {
+            throw Error('The specified height must be a positive integer.');
+        }
+        this.sender.sendMessage(CustomElementApi_1.CustomElementClientMessageType.SetHeightRequest, { height: height });
+    };
+    CustomElement.prototype.getElementValue = function (elementCodename, callback) {
+        if (typeof elementCodename !== 'string') {
+            throw Error('Specify a valid codename string.');
+        }
+        if (typeof callback !== 'function') {
+            throw Error('Specify a callback function.');
+        }
+        this.sender.sendMessageWithReply(CustomElementApi_1.CustomElementClientMessageType.GetValueRequest, CustomElementApi_1.CustomElementHostMessageType.GetValueResponse, function (data) {
+            if (data.error) {
+                console.error(data.error);
+            }
+            else {
+                callback(data.value);
+            }
+        }, { codename: elementCodename });
+    };
+    CustomElement.prototype.observeElementChanges = function (elementCodenames, callback) {
+        if (!isStringArray(elementCodenames)) {
+            throw Error('Specify a valid list of element codenames as string array.');
+        }
+        if (typeof callback !== 'function') {
+            throw Error('Specify a callback function.');
+        }
+        this.sender.sendMessageWithListener(CustomElementApi_1.CustomElementClientMessageType.ObserveElementChanges, CustomElementApi_1.CustomElementHostMessageType.OnElementsChanged, function (data) { return callback(data.elements); }, { elements: elementCodenames });
+    };
+    return CustomElement;
+}());
+exports.CustomElement = CustomElement;
 
-    this.sender.sendMessageWithReply(_client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementClientMessageType"].SetValueRequest, _client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementHostMessageType"].SetValueResponse, data => {
-      if (data.error) {
-        console.error(data.error);
-      }
-    }, {
-      value
-    });
-  }
-
-  init(callback) {
-    if (typeof callback !== 'function') {
-      throw Error('Specify a callback function.');
-    }
-
-    this.sender.sendMessageWithReply(_client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementClientMessageType"].InitDataRequest, _client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementHostMessageType"].InitDataResponse, data => {
-      callback(data.element, data.context);
-    });
-  }
-
-  onDisabledChanged(callback) {
-    if (typeof callback !== 'function') {
-      throw Error('Specify a callback function.');
-    }
-
-    this.sender.registerListener(_client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementHostMessageType"].OnDisabledChanged, data => callback(data.disabled));
-  }
-
-  setHeight(height) {
-    if (!Number.isInteger(height) || height < 0) {
-      throw Error('The specified height must be a positive integer.');
-    }
-
-    this.sender.sendMessage(_client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementClientMessageType"].SetHeightRequest, {
-      height
-    });
-  }
-
-  getElementValue(elementCodename, callback) {
-    if (typeof elementCodename !== 'string') {
-      throw Error('Specify a valid codename string.');
-    }
-
-    if (typeof callback !== 'function') {
-      throw Error('Specify a callback function.');
-    }
-
-    this.sender.sendMessageWithReply(_client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementClientMessageType"].GetValueRequest, _client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementHostMessageType"].GetValueResponse, data => {
-      if (data.error) {
-        console.error(data.error);
-      } else {
-        callback(data.value);
-      }
-    }, {
-      codename: elementCodename
-    });
-  }
-
-  observeElementChanges(elementCodenames, callback) {
-    if (!isStringArray(elementCodenames)) {
-      throw Error('Specify a valid list of element codenames as string array.');
-    }
-
-    if (typeof callback !== 'function') {
-      throw Error('Specify a callback function.');
-    }
-
-    this.sender.sendMessageWithListener(_client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementClientMessageType"].ObserveElementChanges, _client_app_applications_contentInventory_content_types_CustomElementApi__WEBPACK_IMPORTED_MODULE_0__["CustomElementHostMessageType"].OnElementsChanged, data => callback(data.elements), {
-      elements: elementCodenames
-    });
-  }
-
-}
 
 /***/ }),
 /* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomElementMessageSender", function() { return CustomElementMessageSender; });
-/* harmony import */ var _customExtension_CustomExtensionMessageSender__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 
-class CustomElementMessageSender extends _customExtension_CustomExtensionMessageSender__WEBPACK_IMPORTED_MODULE_0__["CustomExtensionMessageSender"] {}
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var CustomExtensionMessageSender_1 = __webpack_require__(5);
+var CustomElementMessageSender = /** @class */ (function (_super) {
+    __extends(CustomElementMessageSender, _super);
+    function CustomElementMessageSender() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return CustomElementMessageSender;
+}(CustomExtensionMessageSender_1.CustomExtensionMessageSender));
+exports.CustomElementMessageSender = CustomElementMessageSender;
+
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomExtensionMessageSender", function() { return CustomExtensionMessageSender; });
-/* harmony import */ var _client_app_shared_utils_guidGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-
-class CustomExtensionMessageSender {
-  constructor(allowedClientMessageTypes) {
-    _defineProperty(this, "_callbacks", {});
-
-    _defineProperty(this, "_allowedHostMessageTypes", void 0);
-
-    _defineProperty(this, "_executeCallbacks", (type, data, requestId) => {
-      const callbackKey = this._getCallbackKey(type, requestId);
-
-      const callback = this._callbacks[callbackKey];
-      this._callbacks[callbackKey] = undefined;
-
-      if (callback) {
-        callback(data);
-      }
-    });
-
-    _defineProperty(this, "_processMessage", event => {
-      if (event.data) {
-        const message = event.data; // Check if the event is known message
-
-        if (this._allowedHostMessageTypes.includes(message.type)) {
-          this._executeCallbacks(message.type, message.data, message.requestId);
+Object.defineProperty(exports, "__esModule", { value: true });
+var guidGenerator_1 = __webpack_require__(6);
+var CustomExtensionMessageSender = /** @class */ (function () {
+    function CustomExtensionMessageSender(allowedClientMessageTypes) {
+        var _this = this;
+        this._callbacks = {};
+        this._executeCallbacks = function (type, data, requestId) {
+            var callbackKey = _this._getCallbackKey(type, requestId);
+            var callback = _this._callbacks[callbackKey];
+            _this._callbacks[callbackKey] = undefined;
+            if (callback) {
+                callback(data);
+            }
+        };
+        this._processMessage = function (event) {
+            if (event.data) {
+                var message = event.data;
+                // Check if the event is known message
+                if (_this._allowedHostMessageTypes.includes(message.type)) {
+                    _this._executeCallbacks(message.type, message.data, message.requestId);
+                }
+            }
+        };
+        this._getCallbackKey = function (type, requestId) { return type + (requestId ? requestId : ''); };
+        this._allowedHostMessageTypes = allowedClientMessageTypes;
+        window.addEventListener('message', this._processMessage, true);
+    }
+    CustomExtensionMessageSender.prototype.sendMessage = function (type, data, requestId) {
+        var message = {
+            type: type,
+            data: data,
+            requestId: requestId,
+        };
+        if (window.self === window.top) {
+            throw Error('Custom element is not hosted in an IFrame');
         }
-      }
-    });
-
-    _defineProperty(this, "_getCallbackKey", (type, requestId) => type + (requestId ? requestId : ''));
-
-    this._allowedHostMessageTypes = allowedClientMessageTypes;
-    window.addEventListener('message', this._processMessage, true);
-  }
-
-  sendMessage(type, data, requestId) {
-    const message = {
-      type,
-      data,
-      requestId
+        window.parent.postMessage(message, '*');
     };
-
-    if (window.self === window.top) {
-      throw Error('Custom element is not hosted in an IFrame');
-    }
-
-    window.parent.postMessage(message, '*');
-  }
-
-  sendMessageWithReply(requestType, responseType, callback, data) {
-    // Generate unique request id (to allow parallel messages)
-    const requestId = Object(_client_app_shared_utils_guidGenerator__WEBPACK_IMPORTED_MODULE_0__["createGuid"])();
-    this.registerCallback(responseType, callback, requestId);
-    this.sendMessage(requestType, data, requestId);
-  }
-
-  sendMessageWithListener(requestType, responseType, callback, data) {
-    // Generate unique request id (to allow parallel messages)
-    const requestId = Object(_client_app_shared_utils_guidGenerator__WEBPACK_IMPORTED_MODULE_0__["createGuid"])();
-    this.registerListener(responseType, callback, requestId);
-    this.sendMessage(requestType, data, requestId);
-  }
-
-  registerListener(type, callback, requestId) {
-    const repetitiveCallback = data => {
-      callback(data);
-      this.registerCallback(type, repetitiveCallback, requestId);
+    CustomExtensionMessageSender.prototype.sendMessageWithReply = function (requestType, responseType, callback, data) {
+        // Generate unique request id (to allow parallel messages)
+        var requestId = guidGenerator_1.createGuid();
+        this.registerCallback(responseType, callback, requestId);
+        this.sendMessage(requestType, data, requestId);
     };
+    CustomExtensionMessageSender.prototype.sendMessageWithListener = function (requestType, responseType, callback, data) {
+        // Generate unique request id (to allow parallel messages)
+        var requestId = guidGenerator_1.createGuid();
+        this.registerListener(responseType, callback, requestId);
+        this.sendMessage(requestType, data, requestId);
+    };
+    CustomExtensionMessageSender.prototype.registerListener = function (type, callback, requestId) {
+        var _this = this;
+        var repetitiveCallback = function (data) {
+            callback(data);
+            _this.registerCallback(type, repetitiveCallback, requestId);
+        };
+        this.registerCallback(type, repetitiveCallback, requestId);
+    };
+    CustomExtensionMessageSender.prototype.registerCallback = function (type, callback, requestId) {
+        if (!callback) {
+            return;
+        }
+        var callbackKey = this._getCallbackKey(type, requestId);
+        this._callbacks[callbackKey] = callback;
+    };
+    return CustomExtensionMessageSender;
+}());
+exports.CustomExtensionMessageSender = CustomExtensionMessageSender;
 
-    this.registerCallback(type, repetitiveCallback, requestId);
-  }
-
-  registerCallback(type, callback, requestId) {
-    if (!callback) {
-      return;
-    }
-
-    const callbackKey = this._getCallbackKey(type, requestId);
-
-    this._callbacks[callbackKey] = callback;
-  }
-
-}
 
 /***/ }),
 /* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createGuid", function() { return createGuid; });
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
-/* harmony import */ var uuid_v4__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(uuid_v4__WEBPACK_IMPORTED_MODULE_0__);
 
-const createGuid = uuid_v4__WEBPACK_IMPORTED_MODULE_0___default.a;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var v4_1 = __importDefault(__webpack_require__(7));
+exports.createGuid = v4_1.default;
+
 
 /***/ }),
 /* 7 */
