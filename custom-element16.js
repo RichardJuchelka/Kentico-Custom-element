@@ -111,31 +111,48 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  _exports.default = void 0;
+  _exports.observeElementChanges = _exports.getElementValue = _exports.setHeight = _exports.selectItems = _exports.selectAssets = _exports.onDisabledChanged = _exports.setValue = _exports.getItemDetails = _exports.getAssetDetails = _exports.init = void 0;
+  const customElement = new _CustomElement.CustomElement(new _CustomElementMessageSender.CustomElementMessageSender(Object.values(_CustomElementApi.CustomElementHostMessageType))); // Publish just public functions not the prototype class with readable internals
 
-  console.error('Warning: You are using deprecated version of custom element API. See https://docs.kontent.ai/reference/custom-elements-js-api.');
+  const init = callback => customElement.init(callback);
 
-  const customElement = new _CustomElement.CustomElement(new _CustomElementMessageSender.CustomElementMessageSender(Object.values(_CustomElementApi.CustomElementHostMessageType)));
-  /*
-    Publish just the plain js object (not the prototype class with readable internals)
-    Arrow functions are used to preserve this inside CustomElement class.
-   */
+  _exports.init = init;
 
-  const api = {
-    init: callback => customElement.init(callback),
-    getAssetDetails: (assetIds, callback) => customElement.getAssetDetails(assetIds, callback),
-    getItemDetails: (itemIds, callback) => customElement.getItemDetails(itemIds, callback),
-    setValue: value => customElement.setValue(value),
-    onDisabledChanged: callback => customElement.onDisabledChanged(callback),
-    selectAssets: (config, callback) => customElement.selectAssets(config, callback),
-    selectItems: (config, callback) => customElement.selectItems(config, callback),
-    setHeight: height => customElement.setHeight(height),
-    getElementValue: (elementCodename, callback) => customElement.getElementValue(elementCodename, callback),
-    observeElementChanges: (elementCodenames, callback) => customElement.observeElementChanges(elementCodenames, callback)
-  };
-  var _default = api;
-  _exports.default = _default;
-  module.exports = exports.default;
+  const getAssetDetails = (assetIds, callback) => customElement.getAssetDetails(assetIds, callback);
+
+  _exports.getAssetDetails = getAssetDetails;
+
+  const getItemDetails = (itemIds, callback) => customElement.getItemDetails(itemIds, callback);
+
+  _exports.getItemDetails = getItemDetails;
+
+  const setValue = value => customElement.setValue(value);
+
+  _exports.setValue = setValue;
+
+  const onDisabledChanged = callback => customElement.onDisabledChanged(callback);
+
+  _exports.onDisabledChanged = onDisabledChanged;
+
+  const selectAssets = (config, callback) => customElement.selectAssets(config, callback);
+
+  _exports.selectAssets = selectAssets;
+
+  const selectItems = (config, callback) => customElement.selectItems(config, callback);
+
+  _exports.selectItems = selectItems;
+
+  const setHeight = height => customElement.setHeight(height);
+
+  _exports.setHeight = setHeight;
+
+  const getElementValue = (elementCodename, callback) => customElement.getElementValue(elementCodename, callback);
+
+  _exports.getElementValue = getElementValue;
+
+  const observeElementChanges = (elementCodenames, callback) => customElement.observeElementChanges(elementCodenames, callback);
+
+  _exports.observeElementChanges = observeElementChanges;
 });
 
 /***/ }),
