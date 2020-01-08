@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="https://app.devkontentmasters.com/js-api/custom-element/v1/custom-element.min.js"></script>
 
     <!-- Custom elements styles -->
     <style>
@@ -163,13 +164,13 @@
             cm.focus();
         }
 
-        var apiUrl = new URLSearchParams(window.location.search).get('apiUrl');
-        if (!apiUrl) {
-            throw Error('apiUrl query parameter is missing.');
-        }
-        $.getScript(apiUrl, () => {
+        // var apiUrl = new URLSearchParams(window.location.search).get('apiUrl');
+        // if (!apiUrl) {
+        //     throw Error('apiUrl query parameter is missing.');
+        // }
+        // $.getScript(apiUrl, () => {
             initCustomElement();
-        })
+        // })
     </script>
 </body>
 
