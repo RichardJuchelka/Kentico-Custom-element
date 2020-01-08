@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Markdown</title>
+    <!-- libs -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+    <!-- Custom elements styles -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Custom element HTML -->
+    <textarea id="editor"></textarea>
+
+    <!-- Custom element code -->
+    <script>
+        var isDisabled = false;
+        var editorInstance = null;
+
+        function updateDisabled(disabled) {
+            if (editorInstance && editorInstance.codemirror) {
+                const $toolbar = $('.editor-toolbar');
+                editorInstance.codemirror.options.readOnly = disabled;
+                if (disabled) {
+                    $toolbar.hide();
+                } else {
+                    $toolbar.show();
+                }
+                updateSize();
+            }
+            isDisabled = disabled;
+        }
+
+        function initializeEditor(initialValue, isDisabled, config = {}) {
+            // Sets up a SimpleMDE editor
+            editorInstance = new SimpleMDE({
+                initialValue: initialValue || '',
+                element: document.getElementById('editor'),
+                // Checks the configuration set inside Kontent for whether to check spelling
+                spellChecker: config.spellChecker,
+                // Sets the actions available in the editor toolbar, including a custom action
+                toolbar: [
+                    "bold",
+                    "italic",
+                    "heading",
+                    "code",
+                    "|",
+                    "quote",
+                    "unordered-list",
+                    "ordered-list",
+                    "|",
+                    "link",
+                    {
+                        name: "image",
+                        action: insertImage,
+                        className: "fa fa-picture-o",
+                        title: "Insert Image"
+                    },
+                    "|",
+                    "preview"
+                ]
+            });
+
+            // Updates initial state (see step 8)
+            updateDisabled(isDisabled);
+
+            // Reacts to window resize to adjust the height
+            window.addEventListener('resize', updateSize);
+
+            // Reacts to window editor value changes to update the value in Kontent
+            editorInstance.codemirror.on('changes',
+                () => {
+                    setValue(editorInstance.value());
+                    updateSize();
+                });
+        }
+
+        function updateSize() {
+            // Updates the custom element height in the Kontent UI
+            const height = Math.ceil($("html").height());
+            CustomElement.setHeight(height);
+        }
+
+        function setValue(value) {
+            // Sends updated value to Kontent (if the editor is empty, will send null  so the element won't meet a required condition).
+            if (!isDisabled) {
+                CustomElement.setValue(value || null);
+            }
+        }
+
+        function initCustomElement() {
+            try {
+                CustomElement.init((element, _context) => {
+                    // Sets up editor with initial value, state (whether disabled) , and configuration options
+                    initializeEditor(element.value, element.disabled, element.config);
+                    updateSize();
+                });
+
+                // Reacts to changes in disabling (e.g., when publishing the item)
+                CustomElement.onDisabledChanged(updateDisabled);
+            } catch (err) {
+                // Sends message to console and editor if initialization failed (for example, if the page is displayed outside the Kontent UI)
+                console.error(err);
+                initializeEditor(err.toString());
+            }
+        }
+
+        async function insertImage() {
+            const assets = await CustomElement.selectAssets({
+                allowMultiple: false,
+                fileType: 'images'
+            });
+            // Retrieves an ID of the first selected asset
+            const assetId = assets[0].id;
+            // Retrieves details of the asset specified by its ID
+            const assetDetails = await CustomElement.getAssetDetails([assetId]);
+            const cm = editorInstance.codemirror;
+            const stat = editorInstance.getState(cm);
+            // Specifies the text to insert into the editor after picking an asset
+            const insertText = ["![", "](#url#)"];
+            // Replaces #url# with the actual URL to the asset
+            _replaceSelection(cm, stat.image, insertText, assetDetails[0].url);
+        }
+
+        function _replaceSelection(cm, active, startEnd, url) {
+            var text;
+            var start = startEnd[0];
+            var end = startEnd[1];
+            var startPoint = cm.getCursor("start");
+            var endPoint = cm.getCursor("end");
+            if (url) {
+                end = end.replace("#url#", url);
+            }
+            if (active) {
+                text = cm.getLine(startPoint.line);
+                start = text.slice(0, startPoint.ch);
+                end = text.slice(startPoint.ch);
+                cm.replaceRange(start + end, {
+                    line: startPoint.line,
+                    ch: 0
+                });
+            } else {
+                text = cm.getSelection();
+                cm.replaceSelection(start + text + end);
+
+                startPoint.ch += start.length;
+                if (startPoint !== endPoint) {
+                    endPoint.ch += start.length;
+                }
+            }
+            cm.setSelection(startPoint, endPoint);
+            cm.focus();
+        }
+
+        var apiUrl = new URLSearchParams(window.location.search).get('apiUrl');
+        if (!apiUrl) {
+            throw Error('apiUrl query parameter is missing.');
+        }
+        $.getScript(apiUrl, () => {
+            initCustomElement();
+        })
+    </script>
+</body>
+
+</html>
